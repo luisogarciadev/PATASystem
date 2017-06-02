@@ -28,7 +28,6 @@ CREATE TABLE animal(
 	petName VARCHAR(200),
 	idSpecies INT,
 	gender VARCHAR(20),
-	idStatus INT NOT NULL,
 	sick VARCHAR(200),
 	ticks BIT(1),
 	fleas BIT(1),
@@ -39,8 +38,15 @@ CREATE TABLE animal(
 	campaignDate DATE,
     active BIT(1),
     UNIQUE (turn),
-	FOREIGN KEY (idSpecies) REFERENCES species(id),
-	FOREIGN KEY (idStatus) REFERENCES status(id)
+	FOREIGN KEY (idSpecies) REFERENCES species(id)
+);
+
+CREATE TABLE animalStatus(
+	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    idAnimal INT,
+    idStatus INT,
+    FOREIGN KEY (idAnimal) REFERENCES animal(id),
+    FOREIGN KEY (idStatus) REFERENCES status(id)
 );
 
 CREATE TABLE personAnimal(
@@ -60,4 +66,4 @@ CREATE TABLE recovery(
 );
 
 INSERT INTO species(name) VALUES('Canino'),('Felino'),('Otro');
-INSERT INTO status(name) VALUES('Preregistro'), ('Pesas'), ('Registro'), ('Sello'), ('Recuperacion');
+INSERT INTO status(name) VALUES('Preregistro'), ('Pesas'), ('Registro'), ('Cirugía'), ('Recuperacion');
