@@ -33,11 +33,19 @@ class AnimalModel extends CI_Model {
     	$data = array(
     		'turn' => $turn,
     		'idSpecies' => $idSpecies,
-    		'idStatus' => $idStatus,
     		'campaignDate' => $campaignDate,
-    		'active' => $active;
+    		'active' => $active,
+    		'gender' => $gender,
+    		'isCertEng' => 0
 		);
-    	$this->db->insert('animal', $data);
+    	
+    	$idAnimal = $this->db->insert('animal', $data);
+    	$data = array(
+    		'idAnimal' => $idAnimal,
+    		'idStatus' => $idStatus,
+    		'time' => date("Y-m-d H:i:s")
+		);
+		$this->db->insert('animalStatus', $data);
     }
 
     function insertWeight() {
@@ -46,8 +54,7 @@ class AnimalModel extends CI_Model {
         $gender = $this->input->post('gender');
 		$data = array(
 			'photo' => $photo,
-			'weight' => $weight,
-			'gender' => $gender
+			'weight' => $weight
 		);
 		$this->db->where("id", $this->input->post("id"));
         $this->db->update("animal", $data);

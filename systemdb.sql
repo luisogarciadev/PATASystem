@@ -36,6 +36,7 @@ CREATE TABLE animal(
 	photo VARCHAR(200),
 	weight DECIMAL(3,3),
 	campaignDate DATE,
+    isCertEng BIT(1),
     active BIT(1),
     UNIQUE (turn),
 	FOREIGN KEY (idSpecies) REFERENCES species(id)
@@ -45,6 +46,7 @@ CREATE TABLE animalStatus(
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     idAnimal INT,
     idStatus INT,
+    time DATETIME,
     FOREIGN KEY (idAnimal) REFERENCES animal(id),
     FOREIGN KEY (idStatus) REFERENCES status(id)
 );
@@ -66,4 +68,4 @@ CREATE TABLE recovery(
 );
 
 INSERT INTO species(name) VALUES('Canino'),('Felino'),('Otro');
-INSERT INTO status(name) VALUES('Preregistro'), ('Pesas'), ('Registro'), ('Cirugía'), ('Recuperacion');
+INSERT INTO status(name) VALUES('Preregistro'), ('Pesas'), ('Registro'), ('Cirugía'), ('Recuperacion'),('Finalizado');
