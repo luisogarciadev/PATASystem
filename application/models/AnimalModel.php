@@ -24,28 +24,43 @@ class AnimalModel extends CI_Model {
         parent::__construct();
     }
 
-    function insertPreRegistry() {
-    	$turn = $this->input->post('turn');
-    	$idSpecies = $this->input->post('idSpecies');
+    function insertPreRegistry($data) {
+    	$turn = $data['turn'];
+    	$idSpecies = $data['idSpecies'];
+        $gender = $data['gender'];
+        $petName = $data['petName'];
     	$idStatus = 1;
     	$campaignDate = date("Y-m-d H:i:s");
     	$active = 1;
+        $isCertEng = $data['isCertEng'];
     	$data = array(
     		'turn' => $turn,
     		'idSpecies' => $idSpecies,
+            'petName' => $petName,
     		'campaignDate' => $campaignDate,
     		'active' => $active,
     		'gender' => $gender,
-    		'isCertEng' => 0
+    		'isCertEng' => $isCertEng
 		);
     	
-    	$idAnimal = $this->db->insert('animal', $data);
+    	$this->db->insert('animal', $data);
+        $idAnimal = $this->db->insert_id();
     	$data = array(
     		'idAnimal' => $idAnimal,
     		'idStatus' => $idStatus,
     		'time' => date("Y-m-d H:i:s")
 		);
 		$this->db->insert('animalStatus', $data);
+        return $idAnimal;
+    }
+
+    function insertAnimalPerson($idAnimal, $idPerson) {
+        $data = array(
+            'idAnimal' => $idAnimal,
+            'idPerson' => $idPerson
+        );
+        $this->db->insert('personanimal', $data);
+
     }
 
     function insertWeight() {
@@ -102,5 +117,12 @@ class AnimalModel extends CI_Model {
     function select() {
         $query = $this->db->get('animal');
         return $query->result();
+    }
+
+    function getMaxTurn() {
+        $query = $this->db->query('select MAX(turn) as turn from patasystem.animal');
+        if ($this->db->affected_rows() > 0) {
+            return $query->result()[0]->turn;
+        }
     }
 }

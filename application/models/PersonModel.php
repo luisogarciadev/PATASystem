@@ -14,16 +14,26 @@ class PersonModel extends CI_Model {
         parent::__construct();
     }
 
+    function insertRegistry() {
+        $phone = $this->input->post('phone');
+
+        $data = array(
+            'phone' => $phone,
+            'active' => 1
+        );
+        $this->db->insert("person", $data);
+        return $this->db->insert_id();
+    }
+
     function insert() {
         $personName = $this->input->post('personName');
         $phone = $this->input->post('phone');
-        $IFE = $this->input->post('IFE');
         $address = $this->input->post('address');
+        $email = $this->input->post('email');
 
         $data = array(
-           'personName' => $personName,
+            'personName' => $personName,
             'phone' => $phone,
-            'IFE' => $IFE,
             'address' => $address,
             'active' => 1
         );
