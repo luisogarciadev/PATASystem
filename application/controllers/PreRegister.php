@@ -7,8 +7,9 @@ class PreRegister extends CI_Controller {
 		$this->load->model('PersonModel');
 
 		$data['people'] = $this->PersonModel->select();
+		$data['title'] = 'Lista Registro Inicial';
 
-		$this->load->view('PreRegister/List', $data);
+		LoadViews('PreRegister/List', $data);
 	}
 
 	public function insert() {
@@ -20,8 +21,9 @@ class PreRegister extends CI_Controller {
 		if (is_null($data['maxTurn'])) {
 			$data['maxTurn'] = 0;
 		}
+		$data['title'] = 'Nueva Persona';
 
-		$this->load->view('PreRegister/Insert', $data);
+		LoadViews('PreRegister/Insert', $data);
 	}
 
 	public function add() {

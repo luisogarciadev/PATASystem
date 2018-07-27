@@ -119,6 +119,18 @@ class AnimalModel extends CI_Model {
         return $query->result();
     }
 
+    function selectCats() {
+        $this->db->where('idSpecies', 2);
+        $query = $this->db->get('animal');
+        return $query->result();
+    }
+
+    function selectDogs() {
+        $this->db->where('idSpecies', 1);
+        $query = $this->db->get('animal');
+        return $query->result();
+    }
+
     function getMaxTurn() {
         $query = $this->db->query('select MAX(turn) as turn from patasystem.animal');
         if ($this->db->affected_rows() > 0) {

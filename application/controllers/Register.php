@@ -6,9 +6,18 @@ class Register extends CI_Controller {
 		$this->load->model('PersonModel');
 
 		$data['people'] = $this->PersonModel->select();
+		$data['title'] = 'Lista Registro';
 
-		$this->load->view('registryList', $data);
+		LoadViews('Register/List', $data);
 	}
 
-	
+	public function insert() {
+		$this->load->model('SpeciesModel');
+		$this->load->model('AnimalModel');
+
+		$data['species'] = $this->SpeciesModel->select();
+		$data['title'] = 'Nueva Persona';
+
+		LoadViews('Register/Insert', $data);
+	}
 }
