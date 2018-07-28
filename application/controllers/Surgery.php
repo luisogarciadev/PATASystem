@@ -7,13 +7,13 @@ class Surgery extends CI_Controller {
 		$this->load->model('AnimalModel');
 		$data['title'] = 'Lista de animales para pesas';
 		$animals = (array)$this->AnimalModel->select();
-		foreach ($data['animals'] as $a) {
-			$person = $this->AnimalModel->getPersonByAnimalID($a->id);
-			$animals['phone'] = $person->phone;
-			$animals['personName'] = $person->personName;
+		for ($i = 0; $i < count($animals); $i++) {
+			$person = $this->AnimalModel->getPersonByAnimalID($animals[$i]['id']);
+			$animals[$i]['phone'] = $person->phone;
+			$animals[$i]['personName'] = $person->personName;
 		}
 		$data['animals'] = (object)$animals;
 
-		LoadViews('Surgery/List', $data);.
+		LoadViews('Surgery/List', $data);
 	}
 }
