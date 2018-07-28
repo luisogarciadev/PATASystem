@@ -7,7 +7,7 @@ class Surgery extends CI_Controller {
 		$this->load->model('AnimalModel');
 		$data['title'] = 'Lista de animales para pesas';
 		$data['animals'] = $this->AnimalModel->select();
-		foreach ($data['animals'] in $a) {
+		foreach ($data['animals'] as $a) {
 			$person = $this->AnimalModel->getPersonByAnimalID($a->id);
 			$data['animals']->phone = $person->phone;
 			$data['animals']->personName = $person->personName;
