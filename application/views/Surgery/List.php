@@ -33,6 +33,7 @@
 					echo '</td><td>';
 					echo $a->gender;
 					echo '</td><td>';
+					echo $a->phone;
 					echo '</td><td>';
 					echo $a->sick;
 					echo '</td><td>';
