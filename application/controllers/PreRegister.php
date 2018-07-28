@@ -35,12 +35,17 @@ class PreRegister extends CI_Controller {
 
 		$idPerson = $this->PersonModel->insertRegistry();
 
+		$turn = $this->input->post('turn');
+		$species = $this->input->post('species');
+		$gender = $this->input->post('gender');
+		$isCertEng = $this->input->post('certEnglish');
+		$petName = $this->input->post('petName');
 		for ($i = 0; $i < $quantity; $i++) {
-			$data = array('turn' => $this->input->post('turn')[$i],
-	    		'idSpecies' => $this->input->post('species')[$i],
-	    		'gender' => $this->input->post('gender')[$i],
-	    		'isCertEng' => $this->input->post('certEnglish')[$i],
-				'petName' => $this->input->post('petName')[$i]);
+			$data = array('turn' => $turn[$i],
+	    		'idSpecies' => $species[$i],
+	    		'gender' => $gender[$i],
+	    		'isCertEng' => $isCertEng[$i],
+				'petName' => $petName[$i]);
 
 			$idAnimal = $this->AnimalModel->insertPreRegistry($data);
 
@@ -59,7 +64,9 @@ class PreRegister extends CI_Controller {
 	}
 
 	public function isAggressive() {
-		
+		$this->load->model('AnimalModel');
+		$this->AnimalModel->isAggressive();
+		return "test";
 	}
 
 	public function photo($id) {

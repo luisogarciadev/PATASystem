@@ -44,13 +44,18 @@
 <script>
 	$(function(){
 		$('.cbAggressive').on('click', function(){
-			var id = $(this).attr('name');
 			$.ajax({ url: '<?php echo base_url('PreRegister/isAggressive');?>',
-	         data: { 'isAggressive': $(this).prop('checked') },
-	         type: 'post',
-	         success: function(output) {
-                      alert(output);
-                  }
+	        	data: { 'isAggressive': $(this).prop('checked'), 'animalID': $(this).attr('name') },
+	        	dataType: "text",
+	        	cache: false,
+	        	type: 'POST',
+	        	success: function(output) {
+                  	alert(output);
+                },
+				error: function (x, h, e) {
+					alert('');
+				}                  	
+
 			});
 		});
 	});
