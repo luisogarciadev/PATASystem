@@ -1,0 +1,1 @@
+1.- Change php.ini post_max_size = 800M and upload_max_filesize = 200M

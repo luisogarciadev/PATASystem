@@ -15,8 +15,7 @@ CREATE TABLE status(
 CREATE TABLE person(
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     personName VARCHAR(200),
-    phone BIGINT,
-	IFE VARCHAR(20),
+    phone BIGINT NOT NULL,
 	address VARCHAR(200),
     email VARCHAR(200),
     active BIT(1)
@@ -32,7 +31,7 @@ CREATE TABLE animal(
 	ticks BIT(1),
 	fleas BIT(1),
 	nervous BIT(1),
-	agressive BIT(1),
+	aggressive BIT(1),
 	photo VARCHAR(200),
 	weight DECIMAL(3,3),
 	campaignDate DATE,
@@ -68,4 +67,4 @@ CREATE TABLE recovery(
 );
 
 INSERT INTO species(name) VALUES('Canino'),('Felino'),('Otro');
-INSERT INTO status(name) VALUES('Preregistro'), ('Pesas'), ('Registro'), ('Cirugía'), ('Recuperacion'),('Finalizado');
+INSERT INTO status(name) VALUES('Preregistro'), ('Pesas'), ('Registro'), ('Cirugía'), ('Recuperacion');

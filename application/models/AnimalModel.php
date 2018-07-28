@@ -99,6 +99,20 @@ class AnimalModel extends CI_Model {
         $this->db->update("animal", $data);
     }
 
+    function insertPhoto() {
+        $id = $this->input->post('animalID');
+        $data = array('photo' => $this->input->post('fileUp'));
+        $this->db->where("id", $id);
+        $this->db->update("animal", $data);
+    }
+
+    function isAggressive() {
+        $id = $this->input->post('animalID');
+        $data = array('aggressive' => $this->input->post('isAggressive'));
+        $this->db->where("id", $id);
+        $this->db->update("animal", $data);
+    }
+
     function selectById() {
     	$this->db->where("id", $this->input->post("id"));
     	$query = $this->db->get("animal");

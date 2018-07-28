@@ -49,4 +49,46 @@ class PreRegister extends CI_Controller {
 
 		$this->index();
 	}
+
+	public function weightList() {
+		$this->load->model('AnimalModel');
+		$data['title'] = 'Lista de animales para pesas';
+		$data['animals'] = $this->AnimalModel->select();
+
+		LoadViews('PreRegister/WeightList', $data);
+	}
+
+	public function isAggressive() {
+		
+	}
+
+	public function photo($id) {
+		$data['title'] = 'Tomar foto';
+		$data['animalID'] = $id;
+		LoadViews('PreRegister/Photo', $data);
+	}
+
+	public function photoUpload() {
+		$this->load->model('AnimalModel');
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = '204800000';
+		$config['max_width'] = '80000';
+		$config['max_height'] = '60000';
+		$config['file_name'] = $this->input->post('animalID');
+		$config['overwrite'] = TRUE;
+
+		$this->load->library('upload', $config);
+
+		if($this->upload->do_upload('fileUp'))
+		{
+			//$this->AnimalModel->insertPhoto();
+			$this->weightList();
+		}
+		else
+		{
+			$error = array('error' => $this->upload->display_errors());
+			$this->load->view('displayError', $error);
+		}
+	}
 }
