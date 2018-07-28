@@ -1,7 +1,6 @@
 <body>
 	<div class="container">
 		<h1><?php echo $title; ?></h1>
-		<a class="btn btn-primary" href="<?php echo base_url('PreRegister/Insert'); ?>">Registrar nuevo</a>
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -9,8 +8,9 @@
 					<th>Nombre de la mascota</th>
 					<th>Especie de la mascota</th>
 					<th>G&eacute;nero</th>
+					<th>Historial</th>
+					<th>Nombre del due&ntilde;o</th>
 					<th>Tel&eacute;fono</th>
-					<th>Enfermedad probable de la mascota</th>
 					<th>Anestesiado</th>
 					
 					
@@ -33,9 +33,11 @@
 					echo '</td><td>';
 					echo $a->gender;
 					echo '</td><td>';
-					echo $a->phone;
-					echo '</td><td>';
 					echo $a->sick;
+					echo '</td><td>';
+					echo $a->personName;
+					echo '</td><td>';
+					echo $a->phone;
 					echo '</td><td>';
 					echo '<input class="cbSurgery" name="' . $a->id . '" type="checkbox"/>';
 					echo '</td></tr>';
