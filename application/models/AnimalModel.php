@@ -59,7 +59,7 @@ class AnimalModel extends CI_Model {
             'idAnimal' => $idAnimal,
             'idPerson' => $idPerson
         );
-        $this->db->insert('personanimal', $data);
+        $this->db->insert('personAnimal', $data);
 
     }
 
@@ -146,9 +146,18 @@ class AnimalModel extends CI_Model {
     }
 
     function getMaxTurn() {
-        $query = $this->db->query('select MAX(turn) as turn from patasystem.animal');
+        $query = $this->db->query('select MAX(turn) as turn from animal');
         if ($this->db->affected_rows() > 0) {
-            return $query->result()[0]->turn;
+            $result = $query->result();
+            return $result[0]->turn;
+        }
+    }
+
+    function getPersonByAnimalID($id) {
+        $query = $this->db->query('select p.* from animal a inner join personanimal pa on a.id = pa.idAnimal inner join person p on pa.idPerson = p.id where a.id =' . $id);
+        if ($this->db->affected_rows() > 0) {
+            $result = $query->result();
+            return $result[0]->turn;
         }
     }
 }
