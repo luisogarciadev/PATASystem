@@ -1,5 +1,8 @@
 <body>	
 	<div class="container">
+		<br>
+		<br>
+		<a class="btn btn-primary" href="<?php echo base_url(); ?>">Men&uacute;</a>
 		<h1>LISTA DE PERSONAS PARA REGISTRO</h1>
 		<a class="btn btn-primary" href="<?php echo base_url('Register/Insert'); ?>">Registrar nuevo</a>
 		<table class="table table-striped table-hover">
