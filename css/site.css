@@ -1,3 +1,12 @@
 h1 {
 	text-align: center;
 }
+#logo {
+	position: relative;
+}
+#logo >img {
+	position: absolute;
+	top:-50px;
+	right:0;
+	width: 150px;
+}

@@ -2,7 +2,10 @@
 	<div class="container">
 		<br>
 		<br>
+		<div id="logo">
 		<a class="btn btn-primary" href="<?php echo base_url(); ?>">Men&uacute;</a>
+		<img src="<?php echo base_url('img/logo.png'); ?>"/>
+		</div>
 		<h1><?php echo $title; ?></h1>
 		<a class="btn btn-primary" href="<?php echo base_url('PreRegister/Insert'); ?>">Registrar nuevo</a>
 		<table class="table table-striped table-hover">
