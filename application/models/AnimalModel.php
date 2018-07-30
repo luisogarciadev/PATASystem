@@ -155,7 +155,7 @@ class AnimalModel extends CI_Model {
     }
 
     function getPersonByAnimalID($id) {
-        $query = $this->db->query('select p.* from animal a inner join personanimal pa on a.id = pa.idAnimal inner join person p on pa.idPerson = p.id where a.id =' . $id);
+        $query = $this->db->query('select p.* from animal a inner join personAnimal pa on a.id = pa.idAnimal inner join person p on pa.idPerson = p.id where a.id =' . $id);
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             return $result[0];
