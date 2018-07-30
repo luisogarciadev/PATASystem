@@ -19,8 +19,12 @@
 			</thead>
 			<tbody>
 				<?php foreach($animals as $a) { 
-					
-					echo '<tr><td>';
+					if ($a->aggressive == "1") {
+						echo '<tr class="danger">';
+					} else {
+						echo '<tr>';
+					}
+					echo '<td>';
 					echo $a->turn;
 					echo '</td><td>';
 					echo '</td><td>';
