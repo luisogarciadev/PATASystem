@@ -30,7 +30,11 @@
 					echo '</td><td>';
 					echo $a->gender;
 					echo '</td><td>';
-					echo '<input class="cbAggressive" name="' . $a->id . '" type="checkbox"/>';
+					if ($a->aggressive == 1) {
+						echo '<input class="cbAggressive" name="' . $a->id . '" type="checkbox" checked/>';
+					} else {
+						echo '<input class="cbAggressive" name="' . $a->id . '" type="checkbox"/>';
+					}
 					echo '</td><td>';
 					echo '<img class="img-responsive" src="' . base_url('uploads/' . $a->id . '.jpg') . '" />';
 					echo '</td><td>';
@@ -41,6 +45,12 @@
 		</table>
 	</div>
 </body>
+<style>
+	img {
+		max-width: 150px!important;
+		max-height: 150px;
+	}
+</style>
 <script>
 	$(function(){
 		$('.cbAggressive').on('click', function(){
@@ -49,11 +59,11 @@
 	        	dataType: "text",
 	        	cache: false,
 	        	type: 'POST',
-	        	success: function(output) {
-                  	alert(output);
+	        	success: function(value) {
+                  	// alert(value);
                 },
 				error: function (x, h, e) {
-					alert('');
+					// alert('');
 				}                  	
 
 			});

@@ -108,7 +108,7 @@ class AnimalModel extends CI_Model {
 
     function isAggressive() {
         $id = $this->input->post('animalID');
-        $aggressive = $this->input->post('isAggressive') == true ? 1 : 0;
+        $aggressive = $this->input->post('isAggressive') == "true" ? "1" : "0";
         $data = array('aggressive' => $aggressive);
         $this->db->where("id", $id);
         $this->db->update("animal", $data);

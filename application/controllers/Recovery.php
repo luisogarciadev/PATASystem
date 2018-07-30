@@ -34,8 +34,19 @@ class Recovery extends CI_Controller {
 	public function dogs() {
 		$this->load->model('AnimalModel');
 
-		$data['people'] = $this->AnimalModel->selectDogs();
+		$animals = $this->AnimalModel->selectDogs();
 		$data['title'] = 'Lista Recuperación Perros';
+
+		for ($i = 0; $i < count($animals); $i++) {
+			$animal = $animals[$i];
+			$animal = (array)$animal;
+			$person = $this->AnimalModel->getPersonByAnimalID($animal['id']);
+			$animal['phone'] = $person->phone;
+			$animal['personName'] = $person->personName;
+			$animals[$i] = (object)$animal;
+		}
+
+		$data['animals'] = $animals;
 
 		LoadViews('Recovery/List', $data);
 	}

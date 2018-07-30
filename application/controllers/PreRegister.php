@@ -65,8 +65,7 @@ class PreRegister extends CI_Controller {
 
 	public function isAggressive() {
 		$this->load->model('AnimalModel');
-		$this->AnimalModel->isAggressive();
-		return "test";
+		echo $this->AnimalModel->isAggressive();
 	}
 
 	public function photo($id) {
