@@ -5,7 +5,7 @@ class Surgery extends CI_Controller {
 
 	public function index() {
 		$this->load->model('AnimalModel');
-		$data['title'] = 'Lista de animales para pesas';
+		$data['title'] = 'Lista de animales para cirug&iacutea';
 		$animals = $this->AnimalModel->select();
 		for ($i = 0; $i < count($animals); $i++) {
 			$animal = $animals[$i];
