@@ -26,6 +26,54 @@ class PreRegister extends CI_Controller {
 		LoadViews('PreRegister/Insert', $data);
 	}
 
+	public function modify($id) {
+		$this->load->model('SpeciesModel');
+		$this->load->model('PersonModel');
+		$this->load->model('AnimalModel');
+
+		$person = $this->PersonModel->selectById($id);
+		$animals = $this->AnimalModel->getAnimalsByPersonID($id);
+		$data['species'] = $this->SpeciesModel->select();
+
+		$data['person'] = $person;
+		$data['animals'] = $animals;
+		$data['title'] = 'Modificar Registro Inicial';
+
+		LoadViews('PreRegister/Modify', $data);
+	}
+
+	public function update() {
+		$this->load->model('PersonModel');
+		$this->load->model('AnimalModel');
+
+		$quantity = $this->input->post('animalQuantity');
+		// echo $quantity;
+		$personData = array(
+			'phone' => $this->input->post('phone'),
+			'id' => $this->input->post('idPerson')
+		);
+
+		$this->PersonModel->update($personData);
+		$turn = $this->input->post('turn');
+		$species = $this->input->post('species');
+		$gender = $this->input->post('gender');
+		$isCertEng = $this->input->post('certEnglish');
+		$petName = $this->input->post('petName');
+		$idAnimal = $this->input->post('idAnimal');
+		for ($i = 0; $i < $quantity; $i++) {
+			$data = array('turn' => $turn[$i],
+	    		'idSpecies' => $species[$i],
+	    		'gender' => $gender[$i],
+	    		'isCertEng' => $isCertEng[$i] == 'true' ? 1 : 0,
+				'petName' => $petName[$i],
+				'id' => $idAnimal[$i]
+			);
+			$this->AnimalModel->updatePreRegistry($data);
+		}
+
+		$this->index();
+	}
+
 	public function add() {
 		$this->load->model('PersonModel');
 		$this->load->model('AnimalModel');

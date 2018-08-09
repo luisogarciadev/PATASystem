@@ -41,11 +41,17 @@ class PersonModel extends CI_Model {
         $this->db->update("person", $data);
     }
 
-    function selectById() {
-    	$this->db->where("id", $this->input->post("id"));
+    function selectById($id) {
+    	$this->db->where("id", $id);
     	$query = $this->db->get("person");
     	$query = $query->result();
     	return $query[0];
+    }
+
+    function update($data) {
+        $phone = $data["phone"];
+        $this->db->set("phone", $phone)->where("id", $data["id"])->update("person");
+        // $this->db->update("person", $person);
     }
 
     function delete($id) {

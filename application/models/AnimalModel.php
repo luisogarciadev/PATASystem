@@ -54,6 +54,17 @@ class AnimalModel extends CI_Model {
         return $idAnimal;
     }
 
+    function updatePreRegistry($data) {
+        $id = $data['id'];
+        $turn = $data['turn'];
+        $idSpecies = $data['idSpecies'];
+        $gender = $data['gender'];
+        $petName = $data['petName'];
+        $isCertEng = $data['isCertEng'];
+        $query = "update animal set turn = " . $turn . ", idSpecies = " . $idSpecies . ", gender = '" . $gender . "', petName = '" . $petName . "', isCertEng = '" . $isCertEng . "' where id = " . $id;
+        $this->db->query($query);
+    }
+
     function insertAnimalPerson($idAnimal, $idPerson) {
         $data = array(
             'idAnimal' => $idAnimal,
@@ -159,6 +170,14 @@ class AnimalModel extends CI_Model {
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             return $result[0];
+        }
+    }
+
+    function getAnimalsByPersonID($id) {
+        $query = $this->db->query('select a.* from person p inner join personAnimal pa on p.id = pa.idPerson inner join animal a on pa.idAnimal = a.id where p.id =' . $id);
+        if ($this->db->affected_rows() > 0) {
+            $result = $query->result();
+            return $result;
         }
     }
 }
