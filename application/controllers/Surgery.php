@@ -19,4 +19,9 @@ class Surgery extends CI_Controller {
 
 		LoadViews('Surgery/List', $data);
 	}
+
+	public function entered() {
+		$this->load->model('AnimalModel');
+		echo $this->AnimalModel->entered();
+	}
 }

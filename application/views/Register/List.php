@@ -7,7 +7,6 @@
 			<img src="<?php echo base_url('img/logo.png'); ?>"/>
 		</div>
 		<h1>LISTA DE PERSONAS PARA REGISTRO</h1>
-		<a class="btn btn-primary" href="<?php echo base_url('Register/Insert'); ?>">Registrar nuevo</a>
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>

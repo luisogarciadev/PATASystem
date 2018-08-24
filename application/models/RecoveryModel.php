@@ -12,18 +12,31 @@ class RecoveryModel extends CI_Model {
         parent::__construct();
     }
 
-    function insertEntryTime() {
-        $idAnimal = $this->input->post('idAnimal');
+    function insertEntryTime($id) {
+        $this->db->where('idAnimal',$id);
+        $q = $this->db->get('recovery');
+
+        $LocalTime = strtotime('-7 hours');
         $data = array(
-            'entryTime' => date("Y-m-d H:i:s")
+            'entryTime' => date("Y-m-d H:i:s", $LocalTime),
+            'idAnimal' => $id,
         );
-        $this->db->insert('recovery', $data);
+        if ( $q->num_rows() > 0 ) 
+        {
+            $this->db->where('idAnimal',$id);
+            $this->db->update('recovery', $data);
+        } else {
+            $this->db->insert('recovery', $data);
+        }
+        $this->load->model('AnimalModel');
+        $this->AnimalModel->changeStatus($id, 5);
     }
 
-    function insertExitTime() {
-        $idAnimal = $this->input->post('idAnimal');
+    function insertExitTime($id) {
+        $idAnimal = $id;
+        $LocalTime = strtotime('-7 hours');
         $data = array(
-            'exitTime' => date("Y-m-d H:i:s")
+            'exitTime' => date("Y-m-d H:i:s", $LocalTime)
         );
         $this->db->where('idAnimal', $idAnimal);
         $this->db->update('recovery', $data);
@@ -32,5 +45,17 @@ class RecoveryModel extends CI_Model {
     function select() {
         $query = $this->db->get('recovery');
         return $query->result();
+    }
+
+    function getRecoveryByAnimalID($id) {
+        $query = 'SELECT idAnimal, entryTime, exitTime FROM recovery r where idAnimal = ' . $id;
+        $query = $this->db->query($query);
+        $result = $query->result();
+        if ( count($result) > 0 ) {
+            return $result[0];
+        }
+        else {
+            return NULL;
+        }
     }
 }

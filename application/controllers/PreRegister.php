@@ -124,19 +124,20 @@ class PreRegister extends CI_Controller {
 
 	public function photoUpload() {
 		$this->load->model('AnimalModel');
+		$id = $this->input->post('animalID');
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size'] = '204800000';
 		$config['max_width'] = '80000';
 		$config['max_height'] = '60000';
-		$config['file_name'] = $this->input->post('animalID');
+		$config['file_name'] = $id;
 		$config['overwrite'] = TRUE;
 
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('fileUp'))
 		{
-			//$this->AnimalModel->insertPhoto();
+			$this->AnimalModel->changeStatus($id, 3);
 			$this->weightList();
 		}
 		else

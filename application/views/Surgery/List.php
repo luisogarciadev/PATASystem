@@ -45,7 +45,11 @@
 					echo '</td><td>';
 					echo $a->phone;
 					echo '</td><td>';
-					echo '<input class="cbSurgery" name="' . $a->id . '" type="checkbox"/>';
+					if ($a->idStatus > 3) {
+						echo '<input class="cbSurgery" name="' . $a->id . '" type="checkbox" checked/>';
+					} else {
+						echo '<input class="cbSurgery" name="' . $a->id . '" type="checkbox"/>';
+					}
 					echo '</td></tr>';
 					
 				} ?>
@@ -58,11 +62,13 @@
 	$(function(){
 		$('.cbSurgery').on('click', function(){
 			var id = $(this).attr('name');
-			$.ajax({ url: '<?php echo base_url('Surgery/entered');?>',
-	         data: { 'entered': $(this).prop('checked') },
-	         type: 'post',
+			$.ajax({ url: '<?php echo base_url('Surgery/Entered');?>',
+	         data: { 'entered': $(this).prop('checked'), 'id': id },
+	         dataType: "text",
+        	 cache: false,
+        	 type: 'POST',
 	         success: function(output) {
-                      alert(output);
+                      // alert(output);
                   }
 			});
 		});

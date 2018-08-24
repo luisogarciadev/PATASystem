@@ -18,10 +18,6 @@
 					<th>Salida</th>
 					<th>Due&ntilde;o</th>
 					<th>Tel&eacute;fono</th>
-					
-					
-					
-					
 				</tr>
 			</thead>
 			<tbody>
@@ -34,25 +30,58 @@
 					echo '<td>';
 					echo $a->turn;
 					echo '</td><td>';
-					echo '<a class="btn btn-primary" name="enter' . $a->id . '">Entrada</a>';
+					echo '<a class="btn btn-primary enter" name="' . $a->id . '">Entrada</a><p class="entry' . $a->id . '">' . $a->entryTime . '</p>';
 					echo '</td><td>';
 					echo $a->petName;
 					echo '</td><td>';
 					echo '</td><td>';
 					echo $a->sick;
 					echo '</td><td>';
-					echo '<a class="btn btn-primary" name="exit' . $a->id . '">Salida</a>';
+					echo '<a class="btn btn-primary exit" name="' . $a->id . '">Salida</a><p class="exit' . $a->id . '">' . $a->exitTime . '</p>';
 					echo '</td><td>';
 					echo $a->personName;
 					echo '</td><td>';
 					echo $a->phone;
 					echo '</td></tr>';
-					
 				} ?>
 			</tbody>
 		</table>
 	</div>
 </body>
 <script>
-	
+	$(function(){
+		$('.enter').on('click', function(){
+			var id = $(this).attr('name');
+			$.ajax({ url: '<?php echo base_url('Recovery/EnterTime');?>',
+	        	data: { 'id': id },
+	        	dataType: "text",
+	        	cache: false,
+	        	type: 'POST',
+	        	success: function(value) {
+	        		var d = new Date();
+	        		var hours = d.getHours() < 10 ? "0" + d.getHours() : d.getHours();
+	        		var minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
+	        		var seconds = d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds();
+                  	$('.entry' + id).text(hours + ":" + minutes + ":" + seconds);
+                }                  	
+			});
+		});
+
+		$('.exit').on('click', function(){
+			var id = $(this).attr('name');
+			$.ajax({ url: '<?php echo base_url('Recovery/ExitTime');?>',
+	        	data: { 'id': id },
+	        	dataType: "text",
+	        	cache: false,
+	        	type: 'POST',
+	        	success: function(value) {
+	        		var d = new Date();
+	        		var hours = d.getHours() < 10 ? "0" + d.getHours() : d.getHours();
+	        		var minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
+	        		var seconds = d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds();
+                  	$('.exit' + id).text(hours + ":" + minutes + ":" + seconds);
+                }                  	
+			});
+		});
+	});
 </script>

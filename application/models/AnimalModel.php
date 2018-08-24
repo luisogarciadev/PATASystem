@@ -40,17 +40,12 @@ class AnimalModel extends CI_Model {
     		'campaignDate' => $campaignDate,
     		'active' => $active,
     		'gender' => $gender,
-    		'isCertEng' => $isCertEng
+    		'isCertEng' => $isCertEng,
+            'idStatus' => 1
 		);
     	
     	$this->db->insert('animal', $data);
         $idAnimal = $this->db->insert_id();
-    	$data = array(
-    		'idAnimal' => $idAnimal,
-    		'idStatus' => $idStatus,
-    		'time' => date("Y-m-d H:i:s")
-		);
-		$this->db->insert('animalStatus', $data);
         return $idAnimal;
     }
 
@@ -104,7 +99,8 @@ class AnimalModel extends CI_Model {
            'nervous' => $nervous,
            'agressive' => $agressive,
            'photo' => $photo,
-           'weight' => $weight
+           'weight' => $weight,
+           'idStatus' => 3
         );
         $this->db->where("id", $this->input->post("id"));
         $this->db->update("animal", $data);
@@ -117,12 +113,28 @@ class AnimalModel extends CI_Model {
         $this->db->update("animal", $data);
     }
 
+    function changeStatus($id, $idStatus) {
+        $data = array('idStatus'=> $idStatus);
+        $this->db->where("id", $id);
+        $this->db->update("animal", $data);
+    }
+
     function isAggressive() {
         $id = $this->input->post('animalID');
         $aggressive = $this->input->post('isAggressive') == "true" ? "1" : "0";
         $data = array('aggressive' => $aggressive);
         $this->db->where("id", $id);
         $this->db->update("animal", $data);
+    }
+
+    function entered() {
+        $id = $this->input->post('id');
+        $entered = $this->input->post('entered') == "true" ? "4" : "3";
+        $data = array('idStatus' => $entered);
+        // echo var_dump($data);
+        $this->db->where("id", $id);
+        $this->db->update("animal", $data);
+        echo $this->db->last_query();
     }
 
     function selectById() {
@@ -147,12 +159,16 @@ class AnimalModel extends CI_Model {
 
     function selectCats() {
         $this->db->where('idSpecies', 2);
+        $statuses = array(4, 5);
+        $this->db->where_in('idStatus', $statuses);
         $query = $this->db->get('animal');
         return $query->result();
     }
 
     function selectDogs() {
         $this->db->where('idSpecies', 1);
+        $statuses = array(4, 5);
+        $this->db->where_in('idStatus', $statuses);
         $query = $this->db->get('animal');
         return $query->result();
     }
