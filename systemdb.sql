@@ -18,7 +18,7 @@ CREATE TABLE person(
     phone BIGINT NOT NULL,
 	address VARCHAR(200),
     email VARCHAR(200),
-    active BIT(1)
+    active VARCHAR(1)
 );
 
 CREATE TABLE animal(
@@ -28,17 +28,19 @@ CREATE TABLE animal(
 	idSpecies INT,
 	gender VARCHAR(20),
 	sick VARCHAR(200),
-	ticks BIT(1),
-	fleas BIT(1),
-	nervous BIT(1),
-	aggressive BIT(1),
+	ticks VARCHAR(1),
+	fleas VARCHAR(1),
+	nervous VARCHAR(1),
+	aggressive VARCHAR(1),
 	photo VARCHAR(200),
 	weight DECIMAL(3,3),
 	campaignDate DATE,
-    isCertEng BIT(1),
-    active BIT(1),
+    isCertEng VARCHAR(1),
+    active VARCHAR(1),
+    idStatus INT,
     UNIQUE (turn),
-	FOREIGN KEY (idSpecies) REFERENCES species(id)
+	FOREIGN KEY (idSpecies) REFERENCES species(id),
+    FOREIGN KEY (idStatus) REFERENCES status(id)
 );
 
 CREATE TABLE animalStatus(
